@@ -11,7 +11,7 @@ admin.site.register(Servidor, ServidorAdmin)
 class MapaAdmin(admin.ModelAdmin):
     list_display = ['nome', 'servidor', 'status', 'default']
     list_filter = ['status']
-    search_fields = ['nome', 'servidor']
+    search_fields = ['nome', 'servidor__nome']
 admin.site.register(Mapa, MapaAdmin)
 
 class NodeAdmin(admin.ModelAdmin):
@@ -23,5 +23,5 @@ admin.site.register(Node, NodeAdmin)
 class EdgeAdmin(admin.ModelAdmin):
     list_display = ['nome', 'source', 'target', 'mapa__nome', 'mapa__servidor']
     list_filter = ['mapa']
-    search_fields = ['nome', 'source', 'target']
+    search_fields = ['nome', 'source__nome', 'target__nome']
 admin.site.register(Edge, EdgeAdmin)
