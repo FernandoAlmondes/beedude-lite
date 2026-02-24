@@ -1,5 +1,9 @@
 <div class="modal-header">
+    {% if f == 'mapaEdit' %}
     <h1 class="modal-title fs-5" id="exampleModalLabel">Mapa - (MP: {{mapa.id}})</h1>
+    {% else %}
+    <h1 class="modal-title fs-5" id="exampleModalLabel">Novo Mapa</h1>
+    {% endif %}
     <button data-bs-dismiss="modal" type="button" class="btn-close" aria-label="Close"></button>
 </div>
 {{ f }}
