@@ -81,10 +81,10 @@
                 <img class="me-2" src="https://beesolutions.com.br/static/home/images/bee/so-logo.png" alt="Beedude2" width="54" height="54">
                 Beedude2
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navBarPrincipal" aria-controls="navBarPrincipal" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <div class="collapse navbar-collapse" id="navBarPrincipal">
                 {% if request.user.is_authenticated %}
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <input hidden type="text" name="mapaid" id="mapaid" value="{{mapa.id}}">
@@ -103,7 +103,7 @@
                 </ul>
                 {% endif %}
                 {% if request.user.is_authenticated %}
-                <div class="d-flex flex-column flex-lg-row gap-2">
+                <div class="d-flex flex-column flex-lg-row gap-2 align-items-lg-center">
                     <span class="navbar-text">
                     Olá {{ request.user.username }}.
                     </span>
