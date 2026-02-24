@@ -42,9 +42,6 @@
                         <td>{{v.lastvalue}}</td>
                         <td>{{v.lastclock_dt}}</td>
                         <td class="text-center">
-                            <button hx-get="{% url 'grafico' %}" hx-include="#mapaid" hx-vals='{"itemid": {{k}}}' hx-swap="innerHTML" hx-target="#modal-content3" class="btn btn-sm" style="background-color: #19656e;" title="Gráfico">
-                                <i class="fa fa-chart-line"></i>
-                            </button>
                             <button hx-get="{% url 'integracao_inicio' %}" hx-vals='{"elementoid": "{{edge.edgeid}}", "elemento": "edge"}' hx-swap="innerHTML" hx-target="#modal-content" class="btn btn-success btn-sm" title="Novo">
                                 <i class="fa fa-plus"></i>
                             </button>
