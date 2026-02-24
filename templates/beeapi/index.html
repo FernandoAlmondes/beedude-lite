@@ -908,6 +908,18 @@
         }
     });
 
+    // Desabilitando o mover do mapa com o mouse, habilitamos so se for com dois dedos no mobile
+    cy.userPanningEnabled( false );
+
+    cy.on('touchmove', e =>{
+        console.log('Qut de toques:', e.originalEvent.touches.length)
+        if (e.originalEvent.touches.length === 1){
+            cy.userPanningEnabled( false );
+        } else if (e.originalEvent.touches.length === 2){
+            cy.userPanningEnabled( true );
+        }
+    });
+
     // Habilita o log do htmx para debug
     //htmx.logAll();
 

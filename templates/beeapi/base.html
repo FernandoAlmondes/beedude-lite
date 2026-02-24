@@ -77,16 +77,16 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg border-bottom border-secondary bg-body-tertiary">
         <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
+                <img class="me-2" src="https://beesolutions.com.br/static/home/images/bee/so-logo.png" alt="Beedude2" width="54" height="54">
+                Beedude2
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
-                    <img class="me-2" src="https://beesolutions.com.br/static/home/images/bee/so-logo.png" alt="Beedude2" width="54" height="54">
-                    Beedude2
-                </a>
                 {% if request.user.is_authenticated %}
-                <ul class="navbar-nav me-auto mb-0 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <input hidden type="text" name="mapaid" id="mapaid" value="{{mapa.id}}">
                     <li class="nav-item">
                     <a class="nav-link text-decoration-underline" hx-get="{% url 'mapa_listagem' %}" hx-include="#mapaid" hx-target="#modal-content" hx-swap="innerHTML" aria-current="page" href="">Mapas</a>
@@ -102,20 +102,21 @@
                     </li>
                 </ul>
                 {% endif %}
-                <div class="navbar-nav ms-auto gap-2">
-                    {% if request.user.is_authenticated %}
-                        <span class="navbar-text">Olá {{ request.user.username }}.</span>
+                {% if request.user.is_authenticated %}
+                <div class="d-flex flex-column flex-lg-row gap-2">
+                    <span class="navbar-text">
+                    Olá {{ request.user.username }}.
+                    </span>
 
                     <a class="nav-link text-decoration-underline" href="/admin" target="_blank">
-                        <!--<button class="btn btn-outline-success" style="min-width: 100px;" type="submit">Admin</button>-->
-                        Admin
+                    Admin
                     </a>
-                    <a class="nav-link text-decoration-underline" href="{% url 'logout' %}" target="">
-                        <!-- <button class="btn btn-outline-danger" style="min-width: 100px;" type="submit">Sair</button>-->
-                        Logout
+
+                    <a class="nav-link text-decoration-underline" href="{% url 'logout' %}">
+                    Logout
                     </a>
-                    {% endif %}
                 </div>
+                {% endif %}
             </div>
         </div>
     </nav>
