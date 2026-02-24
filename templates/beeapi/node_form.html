@@ -20,102 +20,105 @@
                 </div>
             {% if f == 'nodeEdit' %}
             <p>
+            <div class="table-responsive">
                 <label>Tabela de Itens:</label>
                 <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                    <th scope="col">Itemid</th>
-                    <th scope="col">Host</th>
-                    <th scope="col">Item</th>
-                    <th scope="col">Valor</th>
-                    <th scope="col">Coleta</th>
-                    <th class="text-center" scope="col">Ações</th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                    {% for k,v in itens %}
-                    <tr>
-                    <th scope="row">{{k}}</th>
-                    <td>{{v.host}}</td>
-                    <td>{{v.nome}}</td>
-                    <td>{{v.lastvalue}}</td>
-                    <td>{{v.lastclock_dt}}</td>
-                    <td class="text-center">
-                        <button hx-get="{% url 'integracao_inicio' %}" hx-vals='{"elementoid": "{{node.nodeid}}", "elemento": "node"}' hx-swap="innerHTML" hx-target="#modal-content" class="btn btn-success btn-sm" title="Novo">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                        <button hx-get="{% url 'edita_itens_triggers' %}" hx-vals='{"elementoid": "{{node.nodeid}}", "elemento": "node", "itemid": {{k}}}' hx-swap="none" class="btn btn-danger btn-sm" title="Remover">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5">Itens não encontrados</td>
+                    <thead>
+                        <tr>
+                        <th scope="col">Itemid</th>
+                        <th scope="col">Host</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Coleta</th>
+                        <th class="text-center" scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        {% for k,v in itens %}
+                        <tr>
+                        <th scope="row">{{k}}</th>
+                        <td>{{v.host}}</td>
+                        <td>{{v.nome}}</td>
+                        <td>{{v.lastvalue}}</td>
+                        <td>{{v.lastclock_dt}}</td>
                         <td class="text-center">
+                            <button hx-get="{% url 'grafico' %}" hx-include="#mapaid" hx-vals='{"itemid": {{k}}}' hx-swap="innerHTML" hx-target="#modal-content3" class="btn btn-sm" style="background-color: #19656e;" title="Gráfico">
+                                <i class="fa fa-chart-line"></i>
+                            </button>
                             <button hx-get="{% url 'integracao_inicio' %}" hx-vals='{"elementoid": "{{node.nodeid}}", "elemento": "node"}' hx-swap="innerHTML" hx-target="#modal-content" class="btn btn-success btn-sm" title="Novo">
                                 <i class="fa fa-plus"></i>
                             </button>
+                            <button hx-get="{% url 'edita_itens_triggers' %}" hx-vals='{"elementoid": "{{node.nodeid}}", "elemento": "node", "itemid": {{k}}}' hx-swap="none" class="btn btn-danger btn-sm" title="Remover">
+                                <i class="fa fa-trash"></i>
+                            </button>
                         </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">Itens não encontrados</td>
+                            <td class="text-center">
+                                <button hx-get="{% url 'integracao_inicio' %}" hx-vals='{"elementoid": "{{node.nodeid}}", "elemento": "node"}' hx-swap="innerHTML" hx-target="#modal-content" class="btn btn-success btn-sm" title="Novo">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
 
                 </table>
-            </p>
-            <p>
+            </div>
+            <div class="table-responsive">
                 <label>Tabela de Triggers:</label>
                 <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                    <th scope="col">Triggerid</th>
-                    <th scope="col">Host</th>
-                    <th scope="col">Trigger</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Modo</th>
-                    <th class="text-center" scope="col">Ações</th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                    {% for k,v in triggers %}
-                    <tr>
-                    <th scope="row">{{k}}</th>
-                    <td>{{v.host}}</td>
-                    <td>{{v.nome}}</td>
-                    {% if v.status == 'up' %}
-                    <td class="text-success"><i class="fa-solid fa-toggle-on"></i> {{v.status}}</td>
-                    {% elif v.status == 'down' %}
-                        <td class="text-danger"><i class="fa-solid fa-toggle-off"></i> {{v.status}}</td>
-                    {% else %}
-                    <td class="text-secondary"><i class="fa-solid fa-circle-exclamation"></i> {{v.status}}</td>
-                    {% endif %}
-                    <td>{{modo}}</td>
-                    <td class="text-center">
-                        <button hx-get="{% url 'integracao_inicio' %}" hx-vals='{"elementoid": "{{node.nodeid}}", "elemento": "node"}' hx-swap="innerHTML" hx-target="#modal-content" class="btn btn-success btn-sm" title="Novo">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                        <button hx-get="{% url 'modo' %}" hx-vals='{"elementoid": "{{node.nodeid}}", "elemento": "node", "mapaid": "{{mapa.id}}"}' hx-swap="innerHTML" hx-targe="#modal-content" class="btn btn-primary btn-sm" title="Editar">
-                            <i class="fa fa-edit"></i>
-                        </button>
-                        <button hx-get="{% url 'edita_itens_triggers' %}" hx-vals='{"elementoid": "{{node.nodeid}}", "elemento": "node", "triggerid": {{k}}}' hx-swap="none" class="btn btn-danger btn-sm" title="Remover">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5">Triggers não encontradas</td>
+                    <thead>
+                        <tr>
+                        <th scope="col">Triggerid</th>
+                        <th scope="col">Host</th>
+                        <th scope="col">Trigger</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Modo</th>
+                        <th class="text-center" scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        {% for k,v in triggers %}
+                        <tr>
+                        <th scope="row">{{k}}</th>
+                        <td>{{v.host}}</td>
+                        <td>{{v.nome}}</td>
+                        {% if v.status == 'up' %}
+                        <td class="text-success"><i class="fa-solid fa-toggle-on"></i> {{v.status}}</td>
+                        {% elif v.status == 'down' %}
+                            <td class="text-danger"><i class="fa-solid fa-toggle-off"></i> {{v.status}}</td>
+                        {% else %}
+                        <td class="text-secondary"><i class="fa-solid fa-circle-exclamation"></i> {{v.status}}</td>
+                        {% endif %}
+                        <td>{{modo}}</td>
                         <td class="text-center">
                             <button hx-get="{% url 'integracao_inicio' %}" hx-vals='{"elementoid": "{{node.nodeid}}", "elemento": "node"}' hx-swap="innerHTML" hx-target="#modal-content" class="btn btn-success btn-sm" title="Novo">
                                 <i class="fa fa-plus"></i>
                             </button>
+                            <button hx-get="{% url 'modo' %}" hx-vals='{"elementoid": "{{node.nodeid}}", "elemento": "node", "mapaid": "{{mapa.id}}"}' hx-swap="innerHTML" hx-targe="#modal-content" class="btn btn-primary btn-sm" title="Editar">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button hx-get="{% url 'edita_itens_triggers' %}" hx-vals='{"elementoid": "{{node.nodeid}}", "elemento": "node", "triggerid": {{k}}}' hx-swap="none" class="btn btn-danger btn-sm" title="Remover">
+                                <i class="fa fa-trash"></i>
+                            </button>
                         </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">Triggers não encontradas</td>
+                            <td class="text-center">
+                                <button hx-get="{% url 'integracao_inicio' %}" hx-vals='{"elementoid": "{{node.nodeid}}", "elemento": "node"}' hx-swap="innerHTML" hx-target="#modal-content" class="btn btn-success btn-sm" title="Novo">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
-            </p>
+            </div>
             {% endif %}
             <div class="form-group {% if form.label_template.errors %}form-erros{% endif %}">
             <label for="id_label_template">Label template:</label>
